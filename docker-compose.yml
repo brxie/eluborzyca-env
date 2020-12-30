@@ -13,6 +13,14 @@ services:
     environment:
       UPLOAD_DIR: /app/pv/images
       DB_ADDR: mongodb
+      FRONTEND_URL: https://e-luborzyca.pl
+      SESSION_TOKEN_TTL: 31536000
+      # SMTP_HOST:
+      # SMTP_PORT:
+      # SMTP_USER:
+      # SMTP_PASSWORD:
+      # SMTP_SENDER_NAME:
+      # SMTP_SKIP_CERT_CHECK:
     volumes:
       - eluborzyca_backend_pv:/app/pv
   mongodb:
