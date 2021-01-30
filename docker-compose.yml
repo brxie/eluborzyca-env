@@ -24,7 +24,9 @@ services:
     volumes:
       - eluborzyca_backend_pv:/app/pv
   mongodb:
-    image: "mongo:4.4"
+    image: "mongo:4.4.3"
+    volumes:
+      - eluborzyca_mongodb_pv:/data
   haproxy:
     image: haproxy:1.7
     ports:  
@@ -32,8 +34,19 @@ services:
       - 443:443
     volumes:
       - '/usr/local/etc/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro'
+      - '/etc/ssl/e-luborzyca.pl/:/etc/ssl/e-luborzyca.pl/:ro'
+  adminMongo:
+    image: "imilindsingh/admin-mongo"
+    ports:
+      - "1234:1234"
+    restart: always
+    volumes:
+      - '/usr/local/etc/adminMongo.json:/app/admin-mongo/config/app.json:ro'
 
 volumes:
   # docker volume create -d local-persist -o mountpoint=/mnt/eluborzyca_backend_pv --name=eluborzyca_backend_pv
   eluborzyca_backend_pv:
+    external: true
+  # docker volume create -d local-persist -o mountpoint=/mnt/eluborzyca_mongodb_pv --name=eluborzyca_mongodb_pv
+  eluborzyca_mongodb_pv:
     external: true
